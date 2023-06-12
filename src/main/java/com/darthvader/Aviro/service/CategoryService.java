@@ -21,11 +21,11 @@ public class CategoryService {
         categoryRepository.save(category);
     }
 
-    public void removeCategoryById(int id) {
+    public void removeCategoryById(Integer id) {
         categoryRepository.deleteById(id);
     }
 
-    public Optional<Category> getCategoryById(int id) {
+    public Optional<Category> getCategoryById(Integer id) {
         return categoryRepository.findById(id);
     }
 }
