@@ -1363,3 +1363,15 @@ Caused by: org.h2.mvstore.MVStoreException: The file is locked: C:/Users/ninet/O
 	at org.h2.mvstore.FileStore.open(FileStore.java:128)
 	at org.h2.mvstore.MVStore.<init>(MVStore.java:452)
 	... 64 more
+2023-06-13 00:31:03 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLDataException: Value too long for column "DESCRIPTION CHARACTER VARYING(255)": "U&'30 Pcs of Cadbury Dairy Milk Chocolate Bar- 13.2 gms each\\000d\\000aRed & Purp... (367)"; SQL statement:
+insert into product (category_id,description,image_name,name,price,weight,id) values (?,?,?,?,?,?,?) [22001-214]
+2023-06-13 00:31:09 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLDataException: Value too long for column "DESCRIPTION CHARACTER VARYING(255)": "U&'30 Pcs of Cadbury Dairy Milk Chocolate Bar- 13.2 gms each\\000d\\000aRed & Purp... (367)"; SQL statement:
+insert into product (category_id,description,image_name,name,price,weight,id) values (?,?,?,?,?,?,?) [22001-214]
+2023-06-13 00:31:30 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLDataException: Value too long for column "DESCRIPTION CHARACTER VARYING(255)": "U&'30 Pcs of Cadbury Dairy Milk Chocolate Bar- 13.2 gms each. Red & Purple Paper... (367)"; SQL statement:
+insert into product (category_id,description,image_name,name,price,weight,id) values (?,?,?,?,?,?,?) [22001-214]
+2023-06-13 00:31:39 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLDataException: Value too long for column "DESCRIPTION CHARACTER VARYING(255)": "U&'30 Pcs of Cadbury Dairy Milk Chocolate Bar- 13.2 gms each. Red & Purple Paper... (367)"; SQL statement:
+insert into product (category_id,description,image_name,name,price,weight,id) values (?,?,?,?,?,?,?) [22001-214]
