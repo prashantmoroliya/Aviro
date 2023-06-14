@@ -4,26 +4,22 @@ import com.darthvader.Aviro.service.CustomUserDetailService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
-import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
-import org.springframework.security.config.annotation.authentication.configurers.userdetails.DaoAuthenticationConfigurer;
+import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.config.annotation.web.configurers.HeadersConfigurer;
-import org.springframework.security.config.ldap.LdapBindAuthenticationManagerFactory;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
-import org.springframework.security.web.util.matcher.RequestMatcher;
 
 import java.util.List;
 
 @Configuration
 @EnableWebSecurity
+@EnableMethodSecurity
 public class SecurityConfig {
     @Autowired
     GoogleOAuth2SuccessHandler googleOAuth2SuccessHandler;
@@ -81,7 +77,7 @@ public class SecurityConfig {
         http
                 .authorizeHttpRequests((authorizeHttpRequests) ->
                         authorizeHttpRequests
-                                .requestMatchers("/", "/shop/**", "/register", "/h2-console/**").permitAll()
+                                .requestMatchers("/", "/shop/**", "/register").permitAll()
                                 .requestMatchers("/admin/**").hasRole("ADMIN")
                                 .anyRequest()
                                 .authenticated()
@@ -111,16 +107,30 @@ public class SecurityConfig {
                         exceptionHandling
                                 .accessDeniedPage("/errors/access-denied")
                 )
-                .csrf(AbstractHttpConfigurer::disable
+                .csrf((csrf) ->
+                        csrf
+                                .disable()
                 )
                 .authenticationProvider(authenticationProvider());
 
-        http
-                .headers((headers) ->
-                        headers
-                                .frameOptions(HeadersConfigurer.FrameOptionsConfig::disable
-                                )
-                );
+        http.headers((headers) ->
+                headers
+                        .frameOptions((frameOption) ->
+                                frameOption
+                                        .sameOrigin()
+                                        .disable()
+                        )
+        );
+
+//        http
+//                .headers((headers) ->
+//                        headers
+//                                .frameOptions((frameOption) ->
+//                                        frameOption
+//                                                .disable()
+//                                )
+//                );
+
 
         return http.build();
     }
@@ -139,7 +149,7 @@ public class SecurityConfig {
 //    protected void configure(WebSecurity web) throws Exception {
 //        web
 //                .ignoring()
-//                .requestMatchers("/resources/**", "/static/**", "/images/**", "/productImages/**", "/css/**", "/js/**");
+//                .requestMatchers("/resources/**", "/static/**", "/images/**", "/producxtImages/**", "/css/**", "/js/**");
 //    }
 
     @Bean
